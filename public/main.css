@@ -1,0 +1,75 @@
+img .pg{
+    width: 180px;
+    height: 360px;
+}
+.checked {
+    color: orange;
+  }
+*{
+    background-color: #f4f2f0;
+   
+    font-family: garamond, source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif ;
+    text-transform: capitalize;
+    font-size: 20px;
+    border-color: #DBB5B5;
+}
+header, footer, .up{
+    background-color: #776B5D;
+}
+.link{
+    color: #000000;
+    font-weight: bold;
+}
+
+.back, h4{
+    background-color: #f2ede6;
+}
+.tg, h4{
+    font-weight: bold;
+    color: #7c5e5e;
+}
+.bg {
+    width: 100%;
+    height: 700px;
+}
+.cover{
+    background-color: #B0A695;
+}
+.middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+  
+.ontainer:hover .image {
+    opacity: 0.3;
+}
+  
+.ontainer:hover .middle {
+    opacity: 1;
+}
+  
+.text {
+    background-color: #B0A695;
+    color: #B0A695;
+   
+}
+.image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: 800px;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+.fs{
+    
+    font-family: wide latin;
+    font-size:30px;
+    font-weight: 900;
+}
