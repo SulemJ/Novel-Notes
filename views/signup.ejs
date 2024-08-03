@@ -1,0 +1,44 @@
+<%- include("partials/header.ejs") %>
+<!-- write page: accept new name as a user and return it to index.js as req.body.name-->
+ <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        <h1 class="tg text-dark p-3  pt-0 mt-5 mb-4">create account</h1>
+            <form class="px-3 text-dark back tg" action="/new" id="user" method="post"> 
+           
+                    <label class="pb-2 back" for="exampleFormControlTextarea1">Reviewer name:</label>
+                    <input name="name" class="form-control"  id="exampleFormControlTextarea1"  rows="1" required></input>
+                
+                <label class="pb-2 back" for="exampleFormControlTextarea1">email:</label>
+                <input name="email" class="form-control"  id="exampleFormControlTextarea1"  rows="1" required></input>
+           
+                <label class="pb-2 back" for="exampleFormControlTextarea1">password:</label>
+                <input name="password" class="form-control"  id="exampleFormControlTextarea1"  rows="1" required></input>
+           
+            <br>
+            <input class="btn btn-outline-secondary text-dark mb-2" type="submit" value="create account">
+            </form>
+            <br>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        <h1 class="tg text-dark p-3 mt-4 mb-4">sign in</h1>
+            <form class="px-3 text-dark back tg" action="/signin" id="user" method="post"> 
+            
+                <!-- <div class="col-md-4">
+                    <label class="pb-2 back" for="exampleFormControlTextarea1">Reviewer name:</label>
+                    <input name="name" class="form-control"  id="exampleFormControlTextarea1"  rows="1" required></input>
+                </div> -->
+                <label class="pb-2 back" for="username">email:</label>
+                <input name="username" type="username" class="form-control"  id="exampleFormControlTextarea1"  rows="1" required></input>
+           
+                <label class="pb-2 back" for="password">password:</label>
+                <input name="password" type="password" class="form-control"  id="exampleFormControlTextarea1"  rows="1" required></input>
+            
+            <br>
+            <input class="btn btn-outline-secondary text-dark mb-2" type="submit" value="sign in">
+            </form>
+            <br>
+    </div>
+</div>
+<%- include("partials/footer.ejs") %>

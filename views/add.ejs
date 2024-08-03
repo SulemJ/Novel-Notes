@@ -1,13 +1,5 @@
 <%- include("partials/header.ejs") %>
-<!-- write page: accept new name as a user and return it to index.js as req.body.name-->
-  <h1 class="tg back p-3 mb-0">create account.</h1>
-    <form class="px-3 back tg" action="/user" id="user" method="post"> 
-      <label class="pb-2 back" for="exampleFormControlTextarea1">Reviewer name:</label>
-    <textarea name="name" class="form-control" placeholder="only for new Reviewers" id="exampleFormControlTextarea1"  rows="1" required></textarea>
-    <br>
-    <input class="btn btn-outline-secondary mb-2" type="submit" value="create account">
-    </form>
-    <br>
+
     <!-- create account page: accept new review items and returns them as req.body."their name attribute" -->
   <h1 class="tg back p-3 mb-0">Add your summaries.</h1>
     <form class="px-3 back tg" action="/add" method="POST">
