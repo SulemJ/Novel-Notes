@@ -1,16 +1,88 @@
 <%- include("partials/header.ejs") %>
-<!-- cover picture appears at first visit -->
-<a class="nav-link link ontainer" href="/home">
-<div class="row">
-    <div class="col-md-2 cover"></div>
-    <div class="col-md-8 cover ">
-<img src="\pics\coverbook.jpg" class="image" alt="make beauty front page" class="bg">
-    <div class="middle">
-    <div class="text"></div>
-    </div> 
- </div>
-<div class="col-md-2 cover"></div>
 
+<!-- displaying the reviews -->
+<div class="row mt-5" id="reviews">
+    <div class="col-md-2"></div>
+    <div class="col-md-7 mt-5">
+<% for(let item of locals.listItems){%>
+   <div class="border border-top rounded back p-3 m-2">
+<br>
+    <div class="back row">
+        <div class="back pg col-md-4">
+    <%if(item.isbn) {%>
+<!-- we are using open library covers api as an image src to get pictures by passing book isbn  -->
+            <img src='https://covers.openlibrary.org/b/isbn/<%= item.isbn %>-M.jpg ' class="rounded" alt="cover page picture of <%= item.title  %> ">
+          <% }else{%> 
+<!-- if the user doesn't know the book isbn we use a default pic -->
+            <img  src="\pics\book1.jpg" class="rounded" alt="cover page picture of <%= item.title  %> ">
+          <% }%>  
+        </div>
+        <div class="back col-md-6">
+    <br>
+<h4>Title: <%= item.title  %></h4> 
+<h4>Author: <%=  item.author%></h4> 
+<h4> Review by: <%= item.name %> </h4>
+<!-- here we use simple if else with some css to display the rating as stars -->
+<div class="back stars">
+    <% if(item.rating == 5){ %>
+            <span class="fa fa-star checked "></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+    <% } %>
+    <% if(item.rating == 4){ %>
+            <span class=" fa fa-star checked "></span>
+            <span class=" fa fa-star checked"></span>
+            <span class=" fa fa-star checked"></span>
+            <span class=" fa fa-star checked"></span>
+            <span class=" fa fa-star "></span>
+    <% } %>
+    <% if(item.rating == 3){ %>
+            <span class="fa fa-star checked "></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+    <% } %>
+    <% if(item.rating == 2){ %>
+            <span class="fa fa-star checked "></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+    <% } %>
+    <% if(item.rating == 1){ %>
+            <span class="fa fa-star checked "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+    <% } %>
+  </div>
+        </div>
+    </div>
+<br>
+ <%= item.short_disc %>
+<br>
+<!-- here we add two buttons to see whole summary and to delete but disabled the delete botton since we haven't add any authorization  -->
+<div class="back row">
+    <div class="back col-md-6 col-sm-6">
+<form class="back" action="/summary" method="post">
+    <input type="hidden" onchange="this.form.submit()" name="ItemId" value=" <%= item.id %> " placeholder="your name">
+    <input type="submit" class="rounded" value="Read Full Summary">
+</form>
 </div>
-</a>
+<div class="back col-md-6  col-sm-6">
+<form class="back" action="/delete" method="post">
+    <input type="hidden" onchange="this.form.submit()" name="deleteItemId" value=" <%= item.id %> " placeholder="your name">
+    <input type="submit" class="rounded" value="delete" >
+</form>
+</div>
+</div>
+    </div>
+<% } %>
+<br>
+</div>
+</div>
 <%- include("partials/footer.ejs") %>

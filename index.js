@@ -43,7 +43,7 @@ async function getReview(){
  reviewList.push(element);
   });
  return reviewList;
- };
+}
 
 // gives us the id of the user after accepting the reviewer's name
 async function getUserId(name){
@@ -53,14 +53,14 @@ async function getUserId(name){
     return userId;
   } catch (error) {
     console.error("Failed to make request:", error.message);
+    res.render("add.ejs", {
+      message: "check the name and try again",
+    })
+
   }
 };
-// first render
-app.get("/", (req, res)=>{
-  res.render("cover.ejs");
-});
 // render after the cover picture is clicked
-app.get("/home", async (req,res) => {
+app.get("/", async (req,res) => {
  const reviewList = await getReview();
  res.render("index.ejs", {
     listItems: reviewList,
@@ -68,7 +68,11 @@ app.get("/home", async (req,res) => {
 });
 // write and create account page
 app.get("/write", (req, res) => {
-  res.render("add.ejs");
+  if(req.isAuthenticated()){
+    res.render("add.ejs");
+  } else {
+     res.redirect("/signup");
+  }
 });
 
 app.get("/signup", (req, res)=>{
@@ -93,17 +97,16 @@ app.post("/new", async (req, res) =>{
       }else{
         const newuser = await db.query(`insert into users(name, email, password) values('${name}', '${email}', '${hash}') RETURNING *;`)       
         const user = newuser.rows[0];
-          console.log("success");
-          res.redirect("/write");
-        
+          res.render("add.ejs");
       }
      })
     }
   } catch (error) {
-    console.log(error);
+    res.send(error, "please try again");
   }
 });
 
+// this verify and allow a user that have already an account
 app.post(
   "/signin",
   passport.authenticate("local", {
@@ -111,36 +114,8 @@ app.post(
     failureRedirect: "/signup",
   })
 );
-// app.post( "/signin",async (req,res) =>{
-//   try {
-//     const result = await db.query("SELECT * FROM users WHERE email = $1 ", [
-//       req.body.email,
-//     ]);
-//     if (result.rows.length > 0) {
-//       const user = result.rows[0];
-//       const storedHashedPassword = user.password;
-//       bcrypt.compare(req.body.password, storedHashedPassword, (err, valid) => {
-//         if (err) {
-//           console.error("Error comparing passwords:", err);
-//           return cb(err);
-//         } else {
-//           if (valid) {
-//            res.render("add.ejs");
-//           } else {
-//             res.render("signup.ejs");
-//           }
-//         }
-//       });
-//     } else {
-//       return cb("User not found");
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
 // when the add review btn is clicked this gets activated and it send's the following queries to postgres
 app.post("/add", async (req,res) =>{
-  if(req.isAuthenticated()){
       try {
         let str = req.body.name; 
         const userId = await getUserId(str);
@@ -151,32 +126,54 @@ app.post("/add", async (req,res) =>{
         const description = req.body.description;
         const review = req.body.review;
         await db.query(`insert into  review(title, author, rating, isbn, short_disc, review, user_id) values('${title}','${author}',${rating},'${isbn}','${description}', '${review}' ,${userId})`);    
-        res.redirect("/home");
+        res.redirect("/");
       } catch (error) {
         console.error("Failed to make request:", error.message);
-        res.render("index.ejs", {
-          error: error.message,
-        });
+        res.render("add.ejs", {
+          message: "please check your name and try again",
+        })
       }
-    }else{
-    res.redirect("/signup");
-  }
 });
 // when the "Read Full Summary" btn is clicked this get's the review and display it in summary.ejs
 app.post("/summary", async(req,res)=>{
- let str = req.body.deleteItemId;
+ let str = req.body.ItemId;
  let result = await db.query(`select review from review where id = ${str}`);
  let full = result.rows[0].review;
  res.render("summary.ejs", {
   full: full,
  });
 });
-// delete a review but disabled 
+// delete a review 
 app.post("/delete", async (req, res) => {
+  // Now we have access to req.user
+  // we can access the logged-in user's info from req.user
   if(req.isAuthenticated()){
-  let str = req.body.deleteItemId;
-    await db.query(`delete from review where id = ${str}`);
-    res.redirect("/home");
+    const postId = req.body.deleteItemId;
+    const userId = req.user.id; 
+       await db.query(`delete from review where id = ${postId}`);
+    res.redirect("/");
+  }else{
+    res.redirect("/signup");
+  }
+});
+// shows only the reviews of the particular user it allows to delete the post
+app.get("/mine", async (req, res) => {
+  if(req.isAuthenticated()){
+      const userId = req.user.id; 
+      let review = await  db.query(`select * from review where user_id = ${userId};`)
+      const reviewList = [];
+      review.rows.forEach( element => {
+      reviewList.push(element);
+    });
+    if(reviewList.length == 0){
+      res.render("add.ejs", {
+        message: "you don't have a review yet, add one here!",
+      })
+    }else{
+      res.render("cover.ejs", {
+      listItems: reviewList,
+    });
+    }
   }else{
     res.redirect("/signup");
   }
@@ -208,7 +205,7 @@ passport.use(
         return cb("User not found");
       }
     } catch (err) {
-      console.log(err);
+      res.send(err, "please try again");
     }
   })
 );

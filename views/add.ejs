@@ -1,31 +1,32 @@
 <%- include("partials/header.ejs") %>
 
     <!-- create account page: accept new review items and returns them as req.body."their name attribute" -->
-  <h1 class="tg back p-3 mb-0">Add your summaries.</h1>
-    <form class="px-3 back tg" action="/add" method="POST">
+  <h1 class="tg  p-3 ">Add your summaries.</h1>
+    <form class="px-3  tg" action="/add" method="POST">
+      <h1><%= locals.message %></h1>
    
-    <label class="pb-2 back" for="exampleFormControlTextarea1">Reviewer name:</label>
-    <textarea name="name" class="form-control" placeholder="make sure to put the exact name that you created your account with." id="exampleFormControlTextarea1"  rows="1" required></textarea>
+     <label class="pb-2 " for="exampleFormControlTextarea1">Reviewer name:</label>
+    <textarea name="name" class="form-control" placeholder="username" id="exampleFormControlTextarea1"  rows="1" required></textarea>
     <br>
-     <label class="pb-2 back" for="exampleFormControlTextarea1">title:</label>
+     <label class="pb-2 " for="exampleFormControlTextarea1">title:</label>
     <textarea name="title" class="form-control" id="exampleFormControlTextarea1"  rows="1" required></textarea>
     <br>   
-      <label class="pb-2 back" for="exampleFormControlTextarea1">author:</label>
+      <label class="pb-2 " for="exampleFormControlTextarea1">author:</label>
     <textarea name="author" class="form-control" id="exampleFormControlTextarea1"  rows="1" required></textarea>
     <br>  
-      <label class="pb-2 back" for="exampleFormControlTextarea1">rating(1 - 5):</label>
+      <label class="pb-2 " for="exampleFormControlTextarea1">rating(1 - 5):</label>
     <textarea name="rating" class="form-control" id="exampleFormControlTextarea1"  rows="1" required></textarea>
     <br>  
-      <label class="pb-2 back" for="exampleFormControlTextarea1">book isbn:</label>
+      <label class="pb-2 " for="exampleFormControlTextarea1">book isbn:</label>
     <textarea name="isbn" class="form-control" id="exampleFormControlTextarea1"  rows="1" ></textarea>
     <br>  
-    <label class="pb-2 back" for="exampleFormControlTextarea1">short description:</label>
+    <label class="pb-2 " for="exampleFormControlTextarea1">short description:</label>
     <textarea name="description" class="form-control" id="exampleFormControlTextarea1"  rows="2" required></textarea>
     <br>
-    <label class="pb-2 back" for="exampleFormControlTextarea1">Full summary:</label>
+    <label class="pb-2 " for="exampleFormControlTextarea1">Full summary:</label>
     <textarea name="review" class="form-control" id="exampleFormControlTextarea1"  rows="12" required></textarea>
     <br>
-    <input class="btn btn-outline-secondary mb-2" type="submit" value="add review">
+    <input class="btn btn-outline-secondary mb-5" type="submit" value="add review">
   </form>
  
 

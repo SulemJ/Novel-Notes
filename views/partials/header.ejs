@@ -12,19 +12,27 @@
   <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/sign-in/">
 
 </head>
-<div id="header">
-    <header class="up d-flex flex-wrap justify-content-center pt-1 pb-1  border-top ">
-      <a href="/" class="up d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"> 
-         
-        <span class="fs up ">NovelNotes</span>
-      </a>
+<div id="header" >
+    <nav class="navbar justify-content-center navbar-expand-lg   pt-1 pb-1  border-top up">
+      <div class="container-fluid up">
+        <a href="/" class="up d-flex align-items-center mb-3 mb-md-0 me-md-auto  link-body-emphasis text-decoration-none">      
+          <span class="fs up ">NovelNotes</span>
+        </a>
+        <button class="navbar-toggler up " type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon up"></span>
+        </button>
+  
+        <div class="collapse up navbar-collapse " id="navbarNav">
+          <ul class="navbar-nav up nav ms-auto justify-content-end mx-5">
+            <li class="nav-item up"><a href="/write" class="nav-link active link" aria-current="page">write</a></li>
+            <li class="nav-item up"><a href="/" class="nav-link link">Home</a></li>
+            <li class="nav-item up"><a href="/mine" class="nav-link link">My page</a></li>
+            <li class="nav-item up"><a href="/signup" class="nav-link link">sign up</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+</div>
 
-      <ul class="nav up col-md-4 justify-content-end mx-5 list-unstyled d-flex"> 
-        <li class="nav-item up"><a href="/write" class="nav-link active link" aria-current="page">write</a></li>
-        <li class="nav-item up"><a href="/home" class="nav-link link">Home</a></li>
-        <li class="nav-item up"><a href="/signup" class="nav-link link">sign up</a></li>
-      </ul>
-    </header>
-  </div>
 
   <main >
