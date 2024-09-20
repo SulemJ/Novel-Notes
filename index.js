@@ -95,9 +95,13 @@ app.post("/new", async (req, res) =>{
       if(err){ 
         console.log("error while hashing password", err);
       }else{
-        const newuser = await db.query(`insert into users(name, email, password) values('${name}', '${email}', '${hash}') RETURNING *;`)       
-        const user = newuser.rows[0];
-          res.render("add.ejs");
+        try {
+            const newuser = await db.query(`insert into users(name, email, password) values('${name}', '${email}', '${hash}') RETURNING *;`)       
+            const user = newuser.rows[0];
+              res.render("add.ejs");
+            } catch (error) {
+              res.send(error, "please check you email and try again");
+            }
       }
      })
     }
